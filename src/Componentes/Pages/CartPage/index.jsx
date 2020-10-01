@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import { RemoveMessageSnackbars } from "../../Snackbars";
 import SendButton from "../../SendButton";
+import { MessageContainer } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -28,8 +29,13 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
   },
   title: {
-    height: "80px",
+    fontSize: "16px",
     color: "black",
+  },
+  noProdMessage: {
+    fontSize: "50px",
+    color: "#000080",
+    fontWeight: 'bold',
   },
 }));
 
@@ -114,10 +120,19 @@ const CartPage = () => {
             handleCloseRemoveMessage={handleCloseRemoveMessage}
           />
         ) : null}
-        <Link to="/finalizar-pedido/" style={{ textDecoration: "none" }}>
+      </Grid>
+      {carrinho.length > 0 ? (
+        <Link
+          to="/finalizar-pedido/"
+          style={{ textDecoration: "none", alignSelf: "flex-end" }}
+        >
           <SendButton buttonMessage={"Finalizar Pedido"} />
         </Link>
-      </Grid>
+      ) : (
+        <MessageContainer>
+          <p className={classes.noProdMessage}>Você ainda não tem produtos no carrinho,<br/>que tal dar uma olhada em nossa loja</p>
+        </MessageContainer>
+      )}
     </Container>
   );
 };
