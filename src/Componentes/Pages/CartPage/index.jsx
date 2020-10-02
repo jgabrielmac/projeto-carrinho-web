@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   noProdMessage: {
     fontSize: "50px",
     color: "#000080",
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 }));
 
@@ -58,16 +58,18 @@ const CartPage = () => {
     });
   };
 
-  // const sameProducts = carrinho.filter((prod, anotherProd) => {
-  //   const prods = [];
+  const noRepeatProds = [];
+  carrinho.forEach((prod) => {
+    const prodIdIgual = noRepeatProds.filter(prodIdIgual =>  prod.id === prodIdIgual.id);
+    console.log(prodIdIgual)
+    if (prodIdIgual.length === 0) {
+     return noRepeatProds.push(prod);
+    } else {
+      alert('produto repetido')
+    }
+  });
 
-  //   if (prod.id === anotherProd.id) {
-  //     return prods.push(prod, anotherProd);
-  //   } else {
-  //     return carrinho;
-  //   }
-  // });
-  // console.log(sameProducts);
+  //console.log(noRepeatProds)
 
   const handleCloseRemoveMessage = () => {
     setLocalState({
@@ -79,7 +81,7 @@ const CartPage = () => {
   return (
     <Container maxWidth="xl" fixed>
       <Grid container spacing={5}>
-        {carrinho.map((item) => (
+        {noRepeatProds.map((item) => (
           <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
             <Card className={classes.card}>
               <CardActionArea>
@@ -121,7 +123,7 @@ const CartPage = () => {
           />
         ) : null}
       </Grid>
-      {carrinho.length > 0 ? (
+      {noRepeatProds.length > 0 ? (
         <Link
           to="/finalizar-pedido/"
           style={{ textDecoration: "none", alignSelf: "flex-end" }}
@@ -130,7 +132,11 @@ const CartPage = () => {
         </Link>
       ) : (
         <MessageContainer>
-          <p className={classes.noProdMessage}>Você ainda não tem produtos no carrinho,<br/>que tal dar uma olhada em nossa loja</p>
+          <p className={classes.noProdMessage}>
+            Você ainda não tem produtos no carrinho,
+            <br />
+            que tal dar uma olhada em nossa loja
+          </p>
         </MessageContainer>
       )}
     </Container>
