@@ -4,7 +4,7 @@ import Home from '../../Pages/Home'
 import Product from '../Pages/Product'
 import CartProduct from '../Pages/CartProduct'
 import Cart from '../../Pages/Cart'
-import Form from '../Pages/Form'
+import CartForm from '../Pages/CartForm'
 import IconeCarrinho from '../IconeCarrinho'
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,7 +35,7 @@ export default () => {
             <Route path="/products/:id/" component={Product} />
             <Route path="/carrinho/" component={Cart} />
             <Route path="/product/:id/" component={CartProduct} />
-            <Route path="/finalizar-pedido/" component={Form} />
+            <Route path="/finalizar-pedido/" component={CartForm} />
         </Router>
     )
 }
