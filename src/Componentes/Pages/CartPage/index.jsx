@@ -17,6 +17,8 @@ import {
 import { RemoveMessageSnackbars } from "../../Snackbars";
 import SendButton from "../../SendButton";
 import { MessageContainer } from "./styles";
+import { WarningStockDialog } from "../../WarningDialog";
+import { BuyMessageSnackbars } from "../../Snackbars";
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -42,10 +44,13 @@ const useStyles = makeStyles((theme) => ({
 const CartPage = () => {
   const dispatch = useDispatch();
   const { carrinho } = useSelector((state) => state.carrinho);
+  const { product } = useSelector((state) => state.products);
   const [localState, setLocalState] = React.useState({
     openRemoveMessage: false,
+    stockError: false,
+    openBuyMessage: false,
   });
-  const { openRemoveMessage } = localState;
+  const { openRemoveMessage, stockError, openBuyMessage } = localState;
 
   React.useEffect(() => {
     dispatch(CarrinhoCreator.cartList());
@@ -58,22 +63,44 @@ const CartPage = () => {
     });
   };
 
-  const noRepeatProds = [];
-  carrinho.forEach((prod) => {
-    const prodIdIgual = noRepeatProds.filter(prodIdIgual =>  prod.id === prodIdIgual.id);
-    console.log(prodIdIgual)
-    if (prodIdIgual.length === 0) {
-     return noRepeatProds.push(prod);
-    } else {
-      alert('produto repetido')
-    }
-  });
+  const adicionar = (id) => {
+    const compraSelecionada = carrinho.filter((obj) => obj.id === id);
 
-  //console.log(noRepeatProds)
+    if (compraSelecionada.length >= product.quantity) {
+      setLocalState({
+        ...localState,
+        stockError: true,
+      });
+    } else {
+      dispatch(CarrinhoCreator.addCart(product));
+      setLocalState({
+        openBuyMessage: true,
+      });
+    }
+  };
+
+  // const noRepeatProds = [];
+  // carrinho.forEach((prod) => {
+  //   const prodIdIgual = noRepeatProds.filter(prodIdIgual =>  prod.id === prodIdIgual.id);
+  //   if (prodIdIgual.length === 0) {
+  //    return noRepeatProds.push(prod);
+  //   }
+  // });
 
   const handleCloseRemoveMessage = () => {
     setLocalState({
       openRemoveMessage: false,
+    });
+  };
+  const handleCloseBuyMessage = () => {
+    setLocalState({
+      openBuyMessage: false,
+    });
+  };
+
+  const handleClose = () => {
+    setLocalState({
+      stockError: false,
     });
   };
   const classes = useStyles();
@@ -81,7 +108,7 @@ const CartPage = () => {
   return (
     <Container maxWidth="xl" fixed>
       <Grid container spacing={5}>
-        {noRepeatProds.map((item) => (
+        {carrinho.map((item) => (
           <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
             <Card className={classes.card}>
               <CardActionArea>
@@ -112,6 +139,13 @@ const CartPage = () => {
                 >
                   Remover
                 </Button>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => adicionar(item.id)}
+                >
+                  Adicionar
+                </Button>
               </CardActions>
             </Card>
           </Grid>
@@ -123,7 +157,7 @@ const CartPage = () => {
           />
         ) : null}
       </Grid>
-      {noRepeatProds.length > 0 ? (
+      {carrinho.length > 0 ? (
         <Link
           to="/finalizar-pedido/"
           style={{ textDecoration: "none", alignSelf: "flex-end" }}
@@ -138,6 +172,19 @@ const CartPage = () => {
             que tal dar uma olhada em nossa loja
           </p>
         </MessageContainer>
+      )}
+      {openBuyMessage && (
+        <BuyMessageSnackbars
+          openBuyMessage
+          handleCloseBuyMessage={handleCloseBuyMessage}
+        />
+      )}
+      {stockError && (
+        <WarningStockDialog
+          title="Sinto Muito"
+          message="Estoque Indisponível No Momento"
+          handleClose={handleClose}
+        />
       )}
     </Container>
   );
