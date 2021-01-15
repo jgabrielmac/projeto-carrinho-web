@@ -1,13 +1,13 @@
-import React from "react";
-import Footer from "../../Footer";
-import { useDispatch, useSelector } from "react-redux";
-import { Creators } from "../../../Store/Ducks/productsReducer";
-import { Creators as CarrinhoCreator } from "../../../Store/Ducks/carrinhoReducer";
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Button, Box } from "@material-ui/core";
-import { Loading } from "../../Loading";
-import { WarningDialog, WarningStockDialog } from "../../WarningDialog";
-import { BuyMessageSnackbars } from "../../Snackbars";
+import React from 'react';
+import Footer from 'Componentes/Footer';
+import { useDispatch, useSelector } from 'react-redux';
+import { Creators } from 'Store/Ducks/productsReducer';
+import { Creators as CarrinhoCreator } from 'Store/Ducks/carrinhoReducer';
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography, Button, Box } from '@material-ui/core';
+import { Loading } from 'Componentes/Loading';
+import { WarningDialog, WarningStockDialog } from 'Componentes/WarningDialog';
+import { BuyMessageSnackbars } from 'Componentes/Snackbars';
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -16,24 +16,24 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 130,
   },
   button: {
-    width: "100%",
+    width: '100%',
     height: 80,
     marginTop: 15,
-    backgroundColor: "#034f84",
-    color: "white",
-    "&:hover": {
-      color: "#034f84",
+    backgroundColor: '#034f84',
+    color: 'white',
+    '&:hover': {
+      color: '#034f84',
     },
   },
   title: {
-    color: "black",
-    textAlign: "justify",
+    color: 'black',
+    textAlign: 'justify',
   },
   container: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
   },
 }));
 
@@ -118,8 +118,8 @@ const Product = (props) => {
               className={classes.button}
               onClick={() => Comprar(product.id)}
             >
-              {" "}
-              Comprar{" "}
+              {' '}
+              Comprar{' '}
             </Button>
           </Box>
           <Footer />

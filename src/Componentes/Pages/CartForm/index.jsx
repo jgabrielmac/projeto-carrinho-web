@@ -1,50 +1,57 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import { Container, Box, Button, Icon } from "@material-ui/core";
-import * as Yup from "yup";
-import CustomTextField from "../../forms/CustomTextField";
-import { styles } from "./styles";
-import CustomMaskField from "../../forms/CustomMaskField";
+import React from 'react';
+import { Formik, Form, Field } from 'formik';
+import { Container, Box, Button, Icon } from '@material-ui/core';
+import * as Yup from 'yup';
+import CustomTextField from 'Componentes/forms/CustomTextField';
+import { styles } from './styles';
+import CustomMaskField from 'Componentes/forms/CustomMaskField';
+import api from 'Services/Api';
 
 const CartForm = () => {
   const classes = styles();
 
+  const onSubmit = async ({ name, email }) => {
+    const response = await api.post('/users', { name, email });
+    console.log(response);
+    return response;
+  };
+
   const initialValues = {
-    name: "",
-    email: "",
-    cpf: "",
-    cep: "",
-    street: "",
-    neighborhood: "",
-    number: "",
+    name: '',
+    email: '',
+    cpf: '',
+    cep: '',
+    street: '',
+    neighborhood: '',
+    number: '',
   };
 
   const schema = Yup.object().shape({
-    name: Yup.string().required("campo obrigatório"),
-    email: Yup.string().email("Email inválido").required("campo obrigatório"),
-    cpf: Yup.string().required("campo obrigatório"),
-    cep: Yup.string().required("campo obrigatório"),
-    street: Yup.string().required("campo obrigatório"),
-    neighborhood: Yup.string().required("campo obrigatório"),
+    name: Yup.string().required('campo obrigatório'),
+    email: Yup.string().email('Email inválido').required('campo obrigatório'),
+    cpf: Yup.string().required('campo obrigatório'),
+    cep: Yup.string().required('campo obrigatório'),
+    street: Yup.string().required('campo obrigatório'),
+    neighborhood: Yup.string().required('campo obrigatório'),
     number: Yup.number()
-      .typeError("campo válido apenas com números")
-      .required("campo obrigatório"),
+      .typeError('campo válido apenas com números')
+      .required('campo obrigatório'),
   });
 
-  const submit = (values) => {
-    alert(JSON.stringify(values, null, 2));
-  };
+  // const submit = (values) => {
+  //   alert(JSON.stringify(values, null, 2));
+  // };
 
   return (
     <Container>
-      <Box style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+      <Box style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         <h1>Formulário de finalização</h1>
       </Box>
-      <Box style={{ display: "flex", justifyContent: "center" }}>
+      <Box style={{ display: 'flex', justifyContent: 'center' }}>
         <Formik
           initialValues={initialValues}
           validationSchema={schema}
-          onSubmit={submit}
+          onSubmit={onSubmit}
         >
           <Form>
             <Field

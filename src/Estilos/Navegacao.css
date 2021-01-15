@@ -1,9 +1,12 @@
 .header {
-    background-color: 	#000080;
-    margin-bottom: 2%;
-    padding: 1% 0.5% 1% 0.5%;       
+  background-color: #000080;
+  margin-bottom: 2%;
+  padding: 1% 0.5% 1% 0.5%;
 }
 
 .buttonsDeNavegacao {
-    margin-left: 85%
-}  
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 12px;
+}

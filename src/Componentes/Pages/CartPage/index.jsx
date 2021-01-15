@@ -1,8 +1,8 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Creators as CarrinhoCreator } from "../../../Store/Ducks/carrinhoReducer";
-import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Creators as CarrinhoCreator } from 'Store/Ducks/carrinhoReducer';
+import { Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Grid,
   Card,
@@ -13,31 +13,31 @@ import {
   Button,
   Typography,
   Container,
-} from "@material-ui/core";
-import { RemoveMessageSnackbars } from "../../Snackbars";
-import SendButton from "../../SendButton";
-import { MessageContainer } from "./styles";
-import { WarningStockDialog } from "../../WarningDialog";
-import { BuyMessageSnackbars } from "../../Snackbars";
+} from '@material-ui/core';
+import { RemoveMessageSnackbars } from 'Componentes/Snackbars';
+import SendButton from 'Componentes/SendButton';
+import { MessageContainer } from './styles';
+import { WarningStockDialog } from 'Componentes/WarningDialog';
+import { BuyMessageSnackbars } from 'Componentes/Snackbars';
 
 const useStyles = makeStyles((theme) => ({
   media: {
     height: 100,
     width: 100,
-    padding: "2em",
+    padding: '2em',
     margin: 30,
-    display: "block",
-    marginLeft: "auto",
-    marginRight: "auto",
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   title: {
-    fontSize: "16px",
-    color: "black",
+    fontSize: '16px',
+    color: 'black',
   },
   noProdMessage: {
-    fontSize: "50px",
-    color: "#000080",
-    fontWeight: "bold",
+    fontSize: '50px',
+    color: '#000080',
+    fontWeight: 'bold',
   },
 }));
 
@@ -114,7 +114,7 @@ const CartPage = () => {
               <CardActionArea>
                 <Link
                   to={`/product/${item.id}`}
-                  style={{ textDecoration: "none" }}
+                  style={{ textDecoration: 'none' }}
                 >
                   <CardMedia className={classes.media} image={item.picture} />
                   <CardContent>
@@ -160,9 +160,9 @@ const CartPage = () => {
       {carrinho.length > 0 ? (
         <Link
           to="/finalizar-pedido/"
-          style={{ textDecoration: "none", alignSelf: "flex-end" }}
+          style={{ textDecoration: 'none', alignSelf: 'flex-end' }}
         >
-          <SendButton buttonMessage={"Finalizar Pedido"} />
+          <SendButton buttonMessage={'Finalizar Pedido'} />
         </Link>
       ) : (
         <MessageContainer>

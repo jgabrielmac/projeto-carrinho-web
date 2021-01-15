@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Creators } from '../../../Store/Ducks/productsReducer';
-import { Link } from "react-router-dom";
+import { Creators } from 'Store/Ducks/productsReducer';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Grid,
@@ -12,10 +12,10 @@ import {
   Typography,
   Container,
 } from '@material-ui/core';
-import { Loading } from '../../Loading';
-import { WarningDialog } from '../../WarningDialog';
+import { Loading } from 'Componentes/Loading';
+import { WarningDialog } from 'Componentes/WarningDialog';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   media: {
     height: 100,
     width: 100,
@@ -27,20 +27,19 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     height: '80px',
-    color: 'black'
+    color: 'black',
   },
 }));
 
 const ListaProdutos = () => {
-
-  const dispatch = useDispatch()
-  const { data, error, loading } = useSelector(state => state.products)
+  const dispatch = useDispatch();
+  const { data, error, loading } = useSelector((state) => state.products);
 
   React.useEffect(() => {
-    dispatch(Creators.getProductsRequest())
-  }, [dispatch])
+    dispatch(Creators.getProductsRequest());
+  }, [dispatch]);
 
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Container maxWidth="xl" fixed>
@@ -50,13 +49,20 @@ const ListaProdutos = () => {
           <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
             <Card className={classes.card}>
               <CardActionArea>
-                <Link to={`/products/${item.id}`} style={{ textDecoration: 'none' }}>
+                <Link
+                  to={`/products/${item.id}`}
+                  style={{ textDecoration: 'none' }}
+                >
                   <CardMedia className={classes.media} image={item.picture} />
                   <CardContent>
                     <Typography gutterBottom className={classes.title}>
                       {item.title.substring(0, 70)}...
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      component="p"
+                    >
                       {`R$ ${item.price}`}
                     </Typography>
                   </CardContent>
@@ -66,9 +72,14 @@ const ListaProdutos = () => {
           </Grid>
         ))}
       </Grid>
-      {error ? <WarningDialog title="OPSSS..." message="Houve um problema. Por favor, recarregue a página" /> : null}
+      {error ? (
+        <WarningDialog
+          title="OPSSS..."
+          message="Houve um problema. Por favor, recarregue a página"
+        />
+      ) : null}
     </Container>
-  )
-}
+  );
+};
 
 export default ListaProdutos;
