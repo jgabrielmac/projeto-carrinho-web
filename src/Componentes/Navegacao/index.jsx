@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Home from 'Pages/Home';
-import Login from 'Pages/Login/index';
+import Login from 'Pages/Login';
+import Register from 'Pages/Register';
 import Product from 'Componentes/Pages/Product';
 import CartProduct from 'Componentes/Pages/CartProduct';
 import Cart from 'Pages/Cart';
@@ -41,6 +42,7 @@ export default () => {
       </div>
       <Route path="/" exact component={Home} />
       <Route path="/login" exact component={Login} />
+      <Route path="/cadastro" exact component={Register} />
       <Route path="/products/:id/" component={Product} />
       <Route path="/carrinho/" component={Cart} />
       <Route path="/product/:id/" component={CartProduct} />

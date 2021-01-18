@@ -1,69 +1,60 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import {
-  Container,
-  Box,
-  Button,
-  Icon,
-  Paper,
-  Typography,
-} from '@material-ui/core';
+import { Container, Box, Button, Icon, Paper } from '@material-ui/core';
 import * as Yup from 'yup';
 import CustomTextField from 'Componentes/forms/CustomTextField';
 import { styles } from './styles';
 import api from 'Services/Api';
-import { Link } from 'react-router-dom';
+import CustomMaskField from 'Componentes/forms/CustomMaskField';
+import moment from 'moment';
 
-const Login = () => {
+const Register = () => {
   const classes = styles();
 
   const [empty, setEmpty] = React.useState(false);
   const [login, setLogin] = React.useState(false);
   const [error, setError] = React.useState(false);
 
-  const onSubmit = async ({ password, email }) => {
-    const response = await api.get('/users', { email, password });
-    if (response.data.length === 0) {
-      setEmpty(true);
-      setLogin(false);
-      setError(false);
-    }
-    if (
-      response.data.length > 0 &&
-      response.data[0].email === email &&
-      response.data[0].password === password
-    ) {
-      setLogin(true);
-      setEmpty(false);
-      setError(false);
-    }
-    if (
-      response.data.length > 0 &&
-      response.data[0].email !== email &&
-      response.data[0].password !== password
-    ) {
-      setError(true);
-      setLogin(false);
-      setEmpty(false);
-    }
+  const onSubmit = async ({ name, surname, email, birthdate, password }) => {
+    const response = await api.post('/users', {
+      name,
+      surname,
+      email,
+      birthdate,
+      password,
+    });
     console.log(response);
     return response;
   };
 
   const initialValues = {
+    name: '',
+    surname: '',
     email: '',
+    birthdate: '',
     password: '',
   };
 
   const schema = Yup.object().shape({
+    name: Yup.string().required('campo obrigatório'),
+    surname: Yup.string().required('campo obrigatório'),
     email: Yup.string().email('Email inválido').required('campo obrigatório'),
+    birthdate: Yup.mixed()
+      .test('valid-date', 'Por Favor, insira uma data válida', (val) =>
+        moment(val, 'DD/MM/YYYY')
+          .max(new Date(val), "You can't be born in the future!")
+          .isValid()
+      )
+      // .date()
+
+      .required('campo obrigatório'),
     password: Yup.string().required('campo obrigatório'),
   });
 
   return (
     <Container>
       <Box style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-        <h1>Entrar</h1>
+        <h1>Registre-se</h1>
       </Box>
       <Box style={{ display: 'flex', justifyContent: 'center' }}>
         <Formik
@@ -74,11 +65,33 @@ const Login = () => {
           <Form>
             <Paper style={{ padding: 30, marginTop: 12, width: 390 }}>
               <Field
+                label="Nome"
+                name="name"
+                style={{ width: '100%' }}
+                component={CustomTextField}
+                className={classes.inputContainer}
+              />
+              <Field
+                label="Sobre Nome"
+                name="surname"
+                style={{ width: '100%' }}
+                component={CustomTextField}
+                className={classes.inputContainer}
+              />
+              <Field
                 label="Email"
                 type="email"
                 name="email"
                 style={{ width: '100%' }}
                 component={CustomTextField}
+                className={classes.inputContainer}
+              />
+              <Field
+                label="Data de Nascimento"
+                name="birthdate"
+                style={{ width: '100%' }}
+                mask="99/99/9999"
+                component={CustomMaskField}
                 className={classes.inputContainer}
               />
               <Field
@@ -94,16 +107,11 @@ const Login = () => {
                 style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}
               >
                 <Button type="submit" variant="contained" color="primary">
-                  Enviar
+                  Criar Conta
                   <Icon className={classes.rightIcon}>send</Icon>
                 </Button>
               </div>
             </Paper>
-            <Link to="/cadastro">
-              <Typography style={{ marginTop: 10 }}>
-                Não tem conta ? Cadastre-se aqui
-              </Typography>
-            </Link>
           </Form>
         </Formik>
 
@@ -115,4 +123,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
