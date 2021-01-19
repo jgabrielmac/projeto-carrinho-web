@@ -41,12 +41,18 @@ const Register = () => {
     email: Yup.string().email('Email inválido').required('campo obrigatório'),
     birthdate: Yup.mixed()
       .test('valid-date', 'Por Favor, insira uma data válida', (val) =>
-        moment(val, 'DD/MM/YYYY')
-          .max(new Date(val), "You can't be born in the future!")
-          .isValid()
+        moment(val, 'DD/MM/YYYY').isValid()
       )
-      // .date()
-
+      .test('future-born', 'Data inválida', (val) => {
+        const dataAtual = new Date();
+        const data = new Date(val);
+        if (data < dataAtual) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .test('is-of-age', 'É necessário ser maior de idade', (val) => moment().diff(moment(val, 'DD/MM/YYYY'), 'year') >= 18)
       .required('campo obrigatório'),
     password: Yup.string().required('campo obrigatório'),
   });
@@ -72,7 +78,7 @@ const Register = () => {
                 className={classes.inputContainer}
               />
               <Field
-                label="Sobre Nome"
+                label="Sobrenome"
                 name="surname"
                 style={{ width: '100%' }}
                 component={CustomTextField}
@@ -88,6 +94,7 @@ const Register = () => {
               />
               <Field
                 label="Data de Nascimento"
+                type="date"
                 name="birthdate"
                 style={{ width: '100%' }}
                 mask="99/99/9999"
