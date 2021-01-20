@@ -1,19 +1,32 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import { Container, Box, Button, Icon, Paper } from '@material-ui/core';
+import {
+  Container,
+  Box,
+  Button,
+  Icon,
+  Paper,
+  InputAdornment,
+  IconButton,
+} from '@material-ui/core';
 import * as Yup from 'yup';
 import CustomTextField from 'Componentes/forms/CustomTextField';
 import { styles } from './styles';
 import api from 'Services/Api';
 import CustomMaskField from 'Componentes/forms/CustomMaskField';
 import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 
 const Register = () => {
   const classes = styles();
+  const history = useHistory();
 
-  const [empty, setEmpty] = React.useState(false);
-  const [login, setLogin] = React.useState(false);
-  const [error, setError] = React.useState(false);
+  const [empty] = React.useState(false);
+  const [login] = React.useState(false);
+  const [error] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   const onSubmit = async ({ name, surname, email, birthdate, password }) => {
     const response = await api.post('/users', {
@@ -23,8 +36,11 @@ const Register = () => {
       birthdate,
       password,
     });
-    console.log(response);
-    return response;
+    // console.log(response);
+    if (response.status === 201) {
+      history.push('/');
+    }
+    // return response;
   };
 
   const initialValues = {
@@ -52,7 +68,11 @@ const Register = () => {
           return false;
         }
       })
-      .test('is-of-age', 'É necessário ser maior de idade', (val) => moment().diff(moment(val, 'DD/MM/YYYY'), 'year') >= 18)
+      .test(
+        'is-of-age',
+        'É necessário ser maior de idade',
+        (val) => moment().diff(moment(val, 'DD/MM/YYYY'), 'year') >= 18
+      )
       .required('campo obrigatório'),
     password: Yup.string().required('campo obrigatório'),
   });
@@ -103,10 +123,26 @@ const Register = () => {
               />
               <Field
                 label="Senha"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 style={{ width: '100%' }}
                 component={CustomTextField}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment
+                      position="end"
+                      onClick={handleClickShowPassword}
+                    >
+                      <IconButton aria-label="toggle password visibility">
+                        {showPassword ? (
+                          <Icon>visibility</Icon>
+                        ) : (
+                          <Icon>visibility_off</Icon>
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
                 className={classes.inputContainer}
               />
 

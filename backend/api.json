@@ -15,7 +15,7 @@
       "id": 132537782,
       "title": "Smartphone Samsung Galaxy J7 Pro Android 7.0 Tela 5.5\" Octa-Core 64GB 4G Wi-Fi Câmera 13MP - Preto",
       "price": 1229,
-      "picture": "https://www.extra-imagens.com.br/TelefoneseCelulares/celular/12732847/1091733021/smartphone-samsung-galaxy-j7-pro-sm-j730g-4g-android-70-octa-core-16ghz-64gb-camera-13mp-tela-55-quot-preto-12732847.jpg",
+      "picture": "https://images.samsung.com/is/image/samsung/br-galaxy-j2-prime-g610m-sm-g610mzkszto-000000001-front-black?$684_547_PNG$",
       "description": "O Smartphone Samsung Galaxy J7 Pro possui tela de 5.5 polegadas com a tecnologia Super Amoled, isso permite que você visualize fotos, vídeo, jogos e seus aplicativos preferidos com cores mais intensas e maior nitidez. Entre seus destaques estão suas duas câmeras, traseira e frontal de 13MP, ambas com Flash LED para você tirar fotos com alta qualidade mesmo em ambientes de baixa luminosidade. Além disso, é possível controlar o obturador com um simples gesto manual. O Galaxy J7 Pro também conta com processador Octa Core de última geração, capaz de rodar seus aplicativos com velocidades de tirar o fôlego. Aliado a uma memória RAM de 3GB, oferendo uma experiência móvel de alta qualidade para você poder fazer streaming de vídeos, jogar os mais recentes games ou ver suas séries favoritas com o melhor desempenho. Equipado com uma bateria para não te deixar na mão e poder usar o telefone sem preocupações. Porém ele conta com uma solução inteligente para economizar tempo e bateria. A Tela Always On permite que você acesse a hora, o calendário e as notificações recebidas rapidamente sem precisar ativar o aparelho. Este celular vem com 64GB de armazenamento interno, mas caso não seja suficiente você poderá expandir essa capacidade através de um cartão microSD de até 256GB (vendido separadamente). Outra grande novidade do Galaxy J7 Pro é que ele agora possui sensor de impressões digitais, provendo a máxima proteção de seus dados e garantindo que somente você os acesse.",
       "memory": "64GB",
       "brand": "Samsung",
@@ -104,6 +104,22 @@
       "name": "teste 3",
       "email": "re@gmail.com",
       "id": 3
+    },
+    {
+      "name": "Testet",
+      "surname": "Joioaisdu",
+      "email": "rafael@thinkidea.app",
+      "birthdate": "12/12/2000",
+      "password": "123456",
+      "id": 4
+    },
+    {
+      "name": "Rewere",
+      "surname": "reqrrqw",
+      "email": "rqwreq@gmoad.com",
+      "birthdate": "12/12/2000",
+      "password": "1234567",
+      "id": 5
     }
   ]
 }
